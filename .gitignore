@@ -2,3 +2,5 @@
 /packages
 /TestResults
 /WeixinSDK.NetTests
+/WeixinSDK.Net/bin
+/WeixinSDK.Net/obj
