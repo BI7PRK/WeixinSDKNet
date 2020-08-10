@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C9E4E5BF-0239-49B5-B72A-EBD7CD6679D2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WeixinSDK.Net</RootNamespace>
+    <AssemblyName>WeixinSDK.Net</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\WeixinSDK.Net.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseConfig.cs" />
+    <Compile Include="Cryptography.cs" />
+    <Compile Include="DictionarySort.cs" />
+    <Compile Include="Entity\AuthorizedMessage.cs" />
+    <Compile Include="Entity\ButtonEntity.cs" />
+    <Compile Include="Entity\ComponentTicket.cs" />
+    <Compile Include="Entity\ExceResult.cs" />
+    <Compile Include="Entity\ImageMessage.cs" />
+    <Compile Include="Entity\LinkMessage.cs" />
+    <Compile Include="Entity\LocationEvent.cs" />
+    <Compile Include="Entity\LocationMessage.cs" />
+    <Compile Include="Entity\LocationSelect.cs" />
+    <Compile Include="Entity\MaterList.cs" />
+    <Compile Include="Entity\MessageBase.cs" />
+    <Compile Include="Entity\MusicMessage.cs" />
+    <Compile Include="Entity\NewsItem.cs" />
+    <Compile Include="Entity\ReceiveEvent.cs" />
+    <Compile Include="Entity\ReplyBase.cs" />
+    <Compile Include="Entity\ReplyImage.cs" />
+    <Compile Include="Entity\ReplyMusic.cs" />
+    <Compile Include="Entity\ReplyNews.cs" />
+    <Compile Include="Entity\ReplyText.cs" />
+    <Compile Include="Entity\ReplyVideo.cs" />
+    <Compile Include="Entity\ReplyVoice.cs" />
+    <Compile Include="Entity\UserPayMessage.cs" />
+    <Compile Include="Enums\EncryptType.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\MessageDeserialize.cs" />
+    <Compile Include="FormToEntityHelper.cs" />
+    <Compile Include="MarketCode\Apply\ApplyCodeAPI.cs" />
+    <Compile Include="MP\UserApi.cs" />
+    <Compile Include="ObjectCloneValue.cs" />
+    <Compile Include="Official\Card\CardAPI.cs" />
+    <Compile Include="Official\Card\CardEntitys.cs" />
+    <Compile Include="Official\Card\GiftCardAPI.cs" />
+    <Compile Include="Official\Card\MemberCardEntity.cs" />
+    <Compile Include="Official\Message\ReplyTarget.cs" />
+    <Compile Include="Official\Store\StoreAPI.cs" />
+    <Compile Include="Official\Token\TokenAPI.cs" />
+    <Compile Include="Official\APIHandlerBase.cs" />
+    <Compile Include="Official\Component\ComponentAccessToken.cs" />
+    <Compile Include="Official\Component\ComponentAuthorizer.cs" />
+    <Compile Include="Official\Component\ComponentAuthorizerInfo.cs" />
+    <Compile Include="Official\Component\ComponentPreAuthcode.cs" />
+    <Compile Include="Official\JSAPI\JsSdkAPI.cs" />
+    <Compile Include="Official\Media\DowloadMediaAPI.cs" />
+    <Compile Include="Official\Media\MaterialAPI.cs" />
+    <Compile Include="Official\Media\UploadMediaAPI.cs" />
+    <Compile Include="Official\Menus\MenuAPI.cs" />
+    <Compile Include="Official\Message\FilterSendAIP.cs" />
+    <Compile Include="Official\Message\ReplyMegAPI.cs" />
+    <Compile Include="Official\Message\SendMegAPI.cs" />
+    <Compile Include="Official\Message\TemplateMegAPI.cs" />
+    <Compile Include="Official\PublishingService.cs" />
+    <Compile Include="Official\RequestBase.cs" />
+    <Compile Include="Official\ResponseBase.cs" />
+    <Compile Include="Entity\ResponseHandler.cs" />
+    <Compile Include="Entity\SwitchService.cs" />
+    <Compile Include="Entity\TextMessage.cs" />
+    <Compile Include="Entity\UnAuthorizedMessage.cs" />
+    <Compile Include="Entity\UploadNewEnity.cs" />
+    <Compile Include="Entity\UserInfo.cs" />
+    <Compile Include="Entity\VerifySuccess.cs" />
+    <Compile Include="Entity\VideoMessage.cs" />
+    <Compile Include="Entity\VoiceMessage.cs" />
+    <Compile Include="Enums\EventType.cs" />
+    <Compile Include="Enums\LangType.cs" />
+    <Compile Include="Enums\MaterialType.cs" />
+    <Compile Include="Enums\MediaType.cs" />
+    <Compile Include="Enums\MenuButtonType.cs" />
+    <Compile Include="Enums\MessageType.cs" />
+    <Compile Include="Enums\ScopeType.cs" />
+    <Compile Include="Errors\EncryptError.cs" />
+    <Compile Include="Errors\ErrorInfo.cs" />
+    <Compile Include="Errors\InterfaceError.cs" />
+    <Compile Include="Errors\TicketError.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Extensions\XmlString.cs" />
+    <Compile Include="Http\HttpProxy.cs" />
+    <Compile Include="Interface\IAppConfig.cs" />
+    <Compile Include="Interface\IMessageBase.cs" />
+    <Compile Include="Interface\IParams.cs" />
+    <Compile Include="Interface\IXmlFormat.cs" />
+    <Compile Include="MessageEncryptHelper.cs" />
+    <Compile Include="OAuth\OAuthBase.cs" />
+    <Compile Include="OAuth\OAuthParams.cs" />
+    <Compile Include="OAuth\OpenIdBaseParams.cs" />
+    <Compile Include="OAuth\ParamAttributes.cs" />
+    <Compile Include="OAuth\ToketParamsBase.cs" />
+    <Compile Include="Official\ResultCode.cs" />
+    <Compile Include="Official\Service\ServicerAPI.cs" />
+    <Compile Include="Official\Spread\QRCodeResponse.cs" />
+    <Compile Include="Official\Spread\SpreadAPI.cs" />
+    <Compile Include="Official\UserInfo\UserInfoApi.cs" />
+    <Compile Include="Official\UserInfo\UserTag.cs" />
+    <Compile Include="Pay\Entity\BaseObject.cs" />
+    <Compile Include="Pay\Entity\DataResult.cs" />
+    <Compile Include="Pay\Entity\DownBillObject.cs" />
+    <Compile Include="Pay\Entity\DownBillResult.cs" />
+    <Compile Include="Pay\Entity\RefundObject.cs" />
+    <Compile Include="Pay\Entity\RefundResult.cs" />
+    <Compile Include="Pay\Entity\SignKeyResult.cs" />
+    <Compile Include="Pay\Entity\WechatBridge.cs" />
+    <Compile Include="Pay\Enums\BillTypes.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Pay\Entity\OrderClose.cs" />
+    <Compile Include="Pay\Entity\OrderQuery.cs" />
+    <Compile Include="Pay\Entity\OrderQueryResult.cs" />
+    <Compile Include="Pay\Entity\PaynotifyResult.cs" />
+    <Compile Include="Pay\Entity\PayOrderResult.cs" />
+    <Compile Include="Pay\Entity\ResultInfoBase.cs" />
+    <Compile Include="Pay\Entity\UnifiedOrder.cs" />
+    <Compile Include="Pay\Enums\PayResult.cs" />
+    <Compile Include="Pay\Enums\SignType.cs" />
+    <Compile Include="Pay\Enums\TradeState.cs" />
+    <Compile Include="Pay\Enums\TradeType.cs" />
+    <Compile Include="Pay\Enums\WechatPayError.cs" />
+    <Compile Include="Pay\IMetaEntity.cs" />
+    <Compile Include="Pay\MetaDataHeler.cs" />
+    <Compile Include="Pay\WechatPayHelper.cs" />
+    <Compile Include="ReceiveMessage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
