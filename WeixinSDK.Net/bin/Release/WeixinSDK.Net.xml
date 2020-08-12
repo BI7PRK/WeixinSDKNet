@@ -1738,8 +1738,8 @@
             <param name="accToken">平台的AccessToken</param>
             <returns></returns>
         </member>
-        <!-- 对于成员“M:WeixinSDK.Net.Official.ComponentAppinter.GetAuthorizerList(WeixinSDK.Net.Interface.IAppConfig,System.Int32,System.Int32)”忽略有格式错误的 XML 注释 -->
-        <!-- 对于成员“M:WeixinSDK.Net.Official.ComponentAppinter.ClearQuotaWithApp(WeixinSDK.Net.Interface.IAppConfig)”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "M:WeixinSDK.Net.Official.ComponentAppinter.GetAuthorizerList(WeixinSDK.Net.Interface.IAppConfig,System.Int32,System.Int32)" -->
+        <!-- Badly formed XML comment ignored for member "M:WeixinSDK.Net.Official.ComponentAppinter.ClearQuotaWithApp(WeixinSDK.Net.Interface.IAppConfig)" -->
         <member name="M:WeixinSDK.Net.Official.ComponentAppinter.GetAuthorizerUser(WeixinSDK.Net.Interface.IAppConfig,System.String)">
             <summary>
             获取预授权码授权方令牌
@@ -2166,7 +2166,7 @@
             <param name="obj">发送消息的XML内容</param>
             <param name="config">公众号接口配置</param>
         </member>
-        <!-- 对于成员“M:WeixinSDK.Net.Official.ReplyMegAPI.ReplyText(WeixinSDK.Net.Interface.IAppConfig,System.String,WeixinSDK.Net.Interface.IMessageBase)”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "M:WeixinSDK.Net.Official.ReplyMegAPI.ReplyText(WeixinSDK.Net.Interface.IAppConfig,System.String,WeixinSDK.Net.Interface.IMessageBase)" -->
         <member name="M:WeixinSDK.Net.Official.ReplyMegAPI.ReplyImageMessage(WeixinSDK.Net.Interface.IAppConfig,WeixinSDK.Net.Entity.MessageBase,System.String)">
             <summary>
             发送被动响应图片信息，图片上传失败，则返回失败
@@ -2406,7 +2406,7 @@
             <param name="msg">要发送信息的模板实体</param>
             <returns></returns>
         </member>
-        <!-- 对于成员“T:WeixinSDK.Net.Official.PublishingService”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "T:WeixinSDK.Net.Official.PublishingService" -->
         <member name="F:WeixinSDK.Net.Official.PublishingService.PublishingUserName">
             <summary>
             全网发布自动化测试公众号
@@ -3349,7 +3349,7 @@
             货币种类
             </summary>
         </member>
-        <!-- 对于成员“P:WeixinSDK.Net.Pay.Entity.OrderQueryResult.cash_fee”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "P:WeixinSDK.Net.Pay.Entity.OrderQueryResult.cash_fee" -->
         <member name="P:WeixinSDK.Net.Pay.Entity.OrderQueryResult.cash_fee_type">
             <summary>
             现金支付货币类型
@@ -3655,7 +3655,7 @@
             Y，传入Y时，支付成功消息和支付详情页将出现开票入口。需要在微信支付商户平台或微信公众平台开通电子发票功能，传此字段才可生效
             </summary>
         </member>
-        <!-- 对于成员“P:WeixinSDK.Net.Pay.Entity.UnifiedOrder.scene_info”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "P:WeixinSDK.Net.Pay.Entity.UnifiedOrder.scene_info" -->
         <member name="F:WeixinSDK.Net.Pay.Enums.BillTypes.ALL">
             <summary>
             返回当日所有订单信息，默认值 
