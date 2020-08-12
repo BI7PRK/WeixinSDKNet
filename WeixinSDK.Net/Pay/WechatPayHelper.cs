@@ -20,7 +20,9 @@ namespace WeixinSDK.Net.Pay
     public class WechatPayHelper
     {
 
-        private static string BaseUrl = "https://api.mch.weixin.qq.com/pay";
+        private const string BaseUrl = "https://api.mch.weixin.qq.com/pay";
+        private const string SendboxUrl = "https://api.mch.weixin.qq.com/sandboxnew/pay";
+        private static bool IsSendBox = false;
         /// <summary>
         /// 
         /// </summary>
@@ -32,13 +34,13 @@ namespace WeixinSDK.Net.Pay
         /// <param name="sendbox"></param>
         public WechatPayHelper(bool sendbox)
         {
-            if (sendbox)
-            {
-                BaseUrl = "https://api.mch.weixin.qq.com/sandboxnew/pay";
-            }
-            
+            IsSendBox = sendbox;
         }
         
+        private static string AppendUrl
+        {
+            get { return IsSendBox ? SendboxUrl : BaseUrl; }
+        }
         
         public static PaynotifyResult ProcessNotify(string xml)
         {
@@ -55,7 +57,7 @@ namespace WeixinSDK.Net.Pay
         {
             try
             {
-                var xml = await HttpProxy.PostAsync(BaseUrl + "/orderquery", data.ToXml(key));
+                var xml = await HttpProxy.PostAsync($"{AppendUrl}/orderquery", data.ToXml(key));
                 return MetaDataHeler.ToEntity<OrderQueryResult>(xml);
             }
             catch
@@ -76,7 +78,7 @@ namespace WeixinSDK.Net.Pay
         {
             try
             {
-                var xml = await HttpProxy.PostAsync(BaseUrl + "/unifiedorder", data.ToXml(key));
+                var xml = await HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", data.ToXml(key));
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(xml);
                 if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
                 {
@@ -126,7 +128,7 @@ namespace WeixinSDK.Net.Pay
         {
             try
             {
-                var xml = await HttpProxy.PostAsync(BaseUrl + "/unifiedorder", data.ToXml(key));
+                var xml = await HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", data.ToXml(key));
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(xml);
                 if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
                 {
@@ -168,7 +170,7 @@ namespace WeixinSDK.Net.Pay
         {
             try
             {
-                var xml = HttpProxy.PostAsync(BaseUrl + "/unifiedorder", data.ToXml(key)).Result;
+                var xml = HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", data.ToXml(key)).Result;
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(xml);
                 if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
                 {
@@ -296,7 +298,7 @@ namespace WeixinSDK.Net.Pay
         /// <returns></returns>
         public PayOrderResult CloseOrder(OrderClose data, string key)
         {
-            var xml = HttpProxy.PostAsync(BaseUrl + "/closeorder", data.ToXml(key)).Result;
+            var xml = HttpProxy.PostAsync($"{AppendUrl}/closeorder", data.ToXml(key)).Result;
             return MetaDataHeler.ToEntity<PayOrderResult>(xml);
 
         }
@@ -332,7 +334,7 @@ namespace WeixinSDK.Net.Pay
         {
             try
             {
-                var xml = await HttpProxy.PostAsync(BaseUrl + "/downloadbill", data.ToXml(key));
+                var xml = await HttpProxy.PostAsync($"{AppendUrl}/downloadbill", data.ToXml(key));
                 return MetaDataHeler.ToEntity<DownBillResult>(xml);
             }
             catch 
@@ -353,7 +355,7 @@ namespace WeixinSDK.Net.Pay
         {
             try
             {
-                var xml = await HttpProxy.PostAsync(BaseUrl + "/downloadfundflow", data.ToXml(key));
+                var xml = await HttpProxy.PostAsync($"{AppendUrl}/downloadfundflow", data.ToXml(key));
                 return MetaDataHeler.ToEntity<ResultInfoBase>(xml);
             }
             catch
