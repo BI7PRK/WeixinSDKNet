@@ -79,43 +79,45 @@ namespace WeixinSDK.Net.Pay
         /// <param name="key">API密钥</param>
         /// <returns></returns>
         /// 
-        public static string ToXml(this IMetaEntity enty, string key)
+        public static string ToXml(this IMetaEntity enty, string key = null)
         {
             var typeOf = enty.GetType();
             var propers = typeOf.GetProperties(bFlags);
-
-            var keyApped = new List<string>();
-            foreach (var item in propers)
+            if(key != null)
             {
-                try
+                var keyApped = new List<string>();
+                foreach (var item in propers)
                 {
-                    var name = item.Name;
-                    var m = item.GetCustomAttributes<XMLMemberAttribute>().FirstOrDefault();
-                    if (m != null)
+                    try
                     {
-                        name = m.Name;
-                    }
+                        var name = item.Name;
+                        var m = item.GetCustomAttributes<XMLMemberAttribute>().FirstOrDefault();
+                        if (m != null)
+                        {
+                            name = m.Name;
+                        }
 
-                    var objValue = item.GetValue(enty, null);
-                    if (objValue != null && !string.IsNullOrEmpty(objValue.ToString()))
-                    {
-                        keyApped.Add(name + "=" + objValue);
+                        var objValue = item.GetValue(enty, null);
+                        if (objValue != null && !string.IsNullOrEmpty(objValue.ToString()))
+                        {
+                            keyApped.Add(name + "=" + objValue);
+                        }
                     }
+                    catch { }
                 }
-                catch { }
-            }
 
-            var str = string.Join("&", keyApped.OrderBy(s => s)) + "&key=" + key;
-            byte[] data = Encoding.UTF8.GetBytes(str);
-            var sb = new StringBuilder();
-            var hash = enty.sign_type == SignType.MD5
-                ? MD5.Create().ComputeHash(data)
-                : SHA256.Create().ComputeHash(data);
-            foreach (byte b in hash)
-            {
-                sb.Append(b.ToString("X2")); //大写
+                var str = string.Join("&", keyApped.OrderBy(s => s)) + "&key=" + key;
+                byte[] data = Encoding.UTF8.GetBytes(str);
+                var sb = new StringBuilder();
+                var hash = enty.sign_type == SignType.MD5
+                    ? MD5.Create().ComputeHash(data)
+                    : SHA256.Create().ComputeHash(data);
+                foreach (byte b in hash)
+                {
+                    sb.Append(b.ToString("X2")); //大写
+                }
+                enty.setSign(sb.ToString());
             }
-            enty.setSign(sb.ToString());
 
             var xml = new StringBuilder("<xml>");
             foreach (var item in propers)

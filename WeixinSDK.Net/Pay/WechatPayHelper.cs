@@ -165,12 +165,11 @@ namespace WeixinSDK.Net.Pay
         /// <param name="data"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public DataResult AppPayOrderResult(UnifiedOrder data, string key)
+        public async Task<DataResult> AppPayOrderResult(UnifiedOrder data, string key)
         {
             try
             {
-                var postXml = data.ToXml(key);
-                var xml = HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", postXml).Result;
+                var xml = await HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", data.ToXml(key));
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(xml);
                 if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
                 {
@@ -188,8 +187,7 @@ namespace WeixinSDK.Net.Pay
 
                     return new DataResult()
                     {
-                        Result = obj,
-                        Message = postXml
+                        Result = obj
                     };
 
                 }

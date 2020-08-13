@@ -37,4 +37,3 @@ E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csproj.CoreC
 E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csproj.CopyComplete
 E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.dll
 E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.pdb
-E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csprojAssemblyReference.cache
