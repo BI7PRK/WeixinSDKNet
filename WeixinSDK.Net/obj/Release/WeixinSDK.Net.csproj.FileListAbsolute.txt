@@ -33,8 +33,8 @@ E:\Development\WeixinSDKNet\WeixinSDK.Net\bin\Release\WeixinSDK.Net.dll
 E:\Development\WeixinSDKNet\WeixinSDK.Net\bin\Release\WeixinSDK.Net.pdb
 E:\Development\WeixinSDKNet\WeixinSDK.Net\bin\Release\Newtonsoft.Json.dll
 E:\Development\WeixinSDKNet\WeixinSDK.Net\bin\Release\Newtonsoft.Json.xml
-E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csprojAssemblyReference.cache
 E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csproj.CoreCompileInputs.cache
 E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csproj.CopyComplete
 E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.dll
 E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.pdb
+E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csprojAssemblyReference.cache

@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
 using WeixinSDK.Net.Pay.Entity;
+using WeixinSDK.Net.Pay.Enums;
 
 namespace WeixinSDK.Net.Pay
 {
@@ -78,45 +79,43 @@ namespace WeixinSDK.Net.Pay
         /// <param name="key">API密钥</param>
         /// <returns></returns>
         /// 
-        public static string ToXml(this IMetaEntity enty, string key = null)
+        public static string ToXml(this IMetaEntity enty, string key)
         {
             var typeOf = enty.GetType();
             var propers = typeOf.GetProperties(bFlags);
-            
-            if (!string.IsNullOrEmpty(key))
+
+            var keyApped = new List<string>();
+            foreach (var item in propers)
             {
-                var keyApped = new List<string>();
-                foreach (var item in propers)
+                try
                 {
-                    try
+                    var name = item.Name;
+                    var m = item.GetCustomAttributes<XMLMemberAttribute>().FirstOrDefault();
+                    if (m != null)
                     {
-                        var name = item.Name;
-                        var m = item.GetCustomAttributes<XMLMemberAttribute>().FirstOrDefault();
-                        if (m != null)
-                        {
-                            name = m.Name;
-                        }
-
-                        var objValue = item.GetValue(enty, null);
-                        if (objValue != null && !string.IsNullOrEmpty(objValue.ToString()))
-                        {
-                            keyApped.Add(name + "=" + objValue);
-                        }
+                        name = m.Name;
                     }
-                    catch { }
-                }
 
-                var str = string.Join("&", keyApped.OrderBy(s => s)) + "&key=" + key;
-                //return str;
-                //MD5加密
-                var sb = new StringBuilder();
-                foreach (byte b in MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(str)))
-                {
-                    sb.Append(b.ToString("x2"));
+                    var objValue = item.GetValue(enty, null);
+                    if (objValue != null && !string.IsNullOrEmpty(objValue.ToString()))
+                    {
+                        keyApped.Add(name + "=" + objValue);
+                    }
                 }
-                //所有字符转为大写
-                enty.setSign(sb.ToString().ToUpper());
+                catch { }
             }
+
+            var str = string.Join("&", keyApped.OrderBy(s => s)) + "&key=" + key;
+            byte[] data = Encoding.UTF8.GetBytes(str);
+            var sb = new StringBuilder();
+            var hash = enty.sign_type == SignType.MD5
+                ? MD5.Create().ComputeHash(data)
+                : SHA256.Create().ComputeHash(data);
+            foreach (byte b in hash)
+            {
+                sb.Append(b.ToString("X2")); //大写
+            }
+            enty.setSign(sb.ToString());
 
             var xml = new StringBuilder("<xml>");
             foreach (var item in propers)

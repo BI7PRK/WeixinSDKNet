@@ -12,6 +12,7 @@ namespace WeixinSDK.Net.Pay.Entity
     public interface IBridge
     {
         string prepayid { get; set; }
+        SignType signType { get; set; }
     }
 
 
@@ -74,10 +75,10 @@ namespace WeixinSDK.Net.Pay.Entity
     public class H5Bridge : IBridge
     {
         public string prepayid { get; set; }
-
         public string mweb_url { get; set; }
-
         [JsonConverter(typeof(StringEnumConverter))]
         public TradeType trade_type => TradeType.MWEB;
+        public SignType signType { get; set; }
+
     }
 }

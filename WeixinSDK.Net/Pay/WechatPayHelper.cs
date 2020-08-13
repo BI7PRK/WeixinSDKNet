@@ -82,11 +82,10 @@ namespace WeixinSDK.Net.Pay
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(xml);
                 if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
                 {
-                    var nonce_str = RandomCode(16);
                     var obj = new WechatBridge
                     {
                         appId = result.appid,
-                        nonceStr = nonce_str,
+                        nonceStr = data.nonce_str,
                         package = $"prepay_id={result.prepay_id}",
                         trade_type = result.trade_type,
                         signType = result.sign_type,
@@ -170,17 +169,17 @@ namespace WeixinSDK.Net.Pay
         {
             try
             {
-                var xml = HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", data.ToXml(key)).Result;
+                var postXml = data.ToXml(key);
+                var xml = HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", postXml).Result;
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(xml);
                 if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
                 {
-                    var nonce_str = RandomCode(16);
                     var obj = new AppBridge
                     {
                         appId = result.appid,
                         partnerid = result.mch_id,
                         prepayid = result.prepay_id,
-                        nonceStr = nonce_str,
+                        nonceStr = data.nonce_str,
                         signType = result.sign_type,
                         trade_type = result.trade_type
                     };
@@ -190,14 +189,14 @@ namespace WeixinSDK.Net.Pay
                     return new DataResult()
                     {
                         Result = obj,
-                        Message = xml
+                        Message = postXml
                     };
 
                 }
                 return new DataResult
                 {
                     IsError = true,
-                    Message =$"return_msg: {result.return_msg} \r\ncode_des:{result.err_code_des}"
+                    Message = result.return_msg ?? result.err_code_des
                 };
             }
             catch (Exception ex)
@@ -412,22 +411,17 @@ namespace WeixinSDK.Net.Pay
                 }
             }
             var str = string.Join("&", Dict.Select(s => $"{s.Key}={s.Value}").OrderBy(s => s)) + "&key=" + key;
-            //return str;
-           
-            //MD5加密
-            var sb = new StringBuilder();
-            foreach (byte b in MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(str)))
-            {
-                sb.Append(b.ToString("x2"));
-            }
-            //using (var writer = new StreamWriter(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "sign.txt"), true))
-            //{
-            //    writer.WriteLine(str);
-            //    writer.WriteLine(sb.ToString().ToUpper());
-            //}
 
-            //所有字符转为大写
-            return sb.ToString().ToUpper();
+            byte[] data = Encoding.UTF8.GetBytes(str);
+            var sb = new StringBuilder();
+            var hash = bridge.signType == SignType.MD5
+                ? MD5.Create().ComputeHash(data)
+                : SHA256.Create().ComputeHash(data);
+            foreach (byte b in hash)
+            {
+                sb.Append(b.ToString("X2")); //大写
+            }
+            return sb.ToString();
         }
 
     }

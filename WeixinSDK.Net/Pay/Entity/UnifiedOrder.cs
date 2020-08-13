@@ -163,6 +163,7 @@ namespace WeixinSDK.Net.Pay.Entity
         /// 该字段用于上报支付的场景信息,针对H5支付有以下三种场景,请根据对应场景上报,H5支付不建议在APP端使用，针对场景1，2请接入APP支付，不然可能会出现兼容性问题
         /// </summary>
         public H5Info scene_info { get; set; }
+    
 
         public void setSign(string s)
         {

@@ -3076,6 +3076,11 @@
             The sign.
             </value>
         </member>
+        <member name="P:WeixinSDK.Net.Pay.Entity.BaseObject.sign_type">
+            <summary>
+            签名类型
+            </summary>
+        </member>
         <member name="P:WeixinSDK.Net.Pay.Entity.DownBillObject.bill_type">
             <summary>
             BillTypes

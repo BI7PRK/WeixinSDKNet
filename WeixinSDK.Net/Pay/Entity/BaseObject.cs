@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeixinSDK.Net.Pay.Enums;
 
 namespace WeixinSDK.Net.Pay.Entity
 {
@@ -36,6 +37,10 @@ namespace WeixinSDK.Net.Pay.Entity
             get;
             private set;
         }
+        /// <summary>
+        /// 签名类型
+        /// </summary>
+        public SignType sign_type { get; set; }
 
         public void setSign(string s)
         {
