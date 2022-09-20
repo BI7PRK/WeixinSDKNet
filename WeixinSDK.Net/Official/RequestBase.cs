@@ -72,7 +72,7 @@ namespace WeixinSDK.Net.Official
         {
             var obj = new TModel();
             obj.RequestQueryUrl = QueryUri;
-            obj.ResonseBody = HttpProxy.GetStringAsync(QueryUri, param).Result;
+            obj.ResonseBody = GetStringAsync(QueryUri, param).Result;
             return obj;
         }
 
@@ -88,8 +88,10 @@ namespace WeixinSDK.Net.Official
                 json = entity.ToString();
             }
             obj.RequestQueryUrl = QueryUri;
-            obj.ResonseBody = HttpProxy.PostAsync(QueryUri, json).Result;
-            
+            var res = PostAsync(QueryUri, json).Result;
+            obj.ResonseBody = res.IsSuccess ? res.Body : res.Message;
+
+
             return obj;
         }
       

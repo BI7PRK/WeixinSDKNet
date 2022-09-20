@@ -37,3 +37,13 @@ E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csproj.CoreC
 E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csproj.CopyComplete
 E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.dll
 E:\Development\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.pdb
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\bin\Release\WeixinSDK.Net.xml
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\bin\Release\WeixinSDK.Net.dll
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\bin\Release\WeixinSDK.Net.pdb
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\bin\Release\Newtonsoft.Json.dll
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\bin\Release\Newtonsoft.Json.xml
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csproj.AssemblyReference.cache
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csproj.CoreCompileInputs.cache
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.csproj.CopyComplete
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.dll
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\obj\Release\WeixinSDK.Net.pdb

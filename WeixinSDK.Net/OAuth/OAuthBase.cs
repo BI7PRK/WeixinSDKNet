@@ -28,9 +28,10 @@ namespace WeixinSDK.Net.OAuth2
         /// <param name="url">AccessToken接口地址</param>
         /// <param name="dict">在重写向而获取返回的Code，换取AccessToken</param>
         /// <returns></returns>
-        public virtual  Task<string> GetAccessToken(string url, ToketParamsBase dict)
+        public virtual async Task<string> GetAccessToken(string url, ToketParamsBase dict)
         {
-            return HttpProxy.PostAsync(url, dict.ToFormString());
+            var res = await HttpProxy.PostAsync(url, dict.ToFormString());
+            return res.IsSuccess ? res.Body : "";
         }
 
         /// <summary>
@@ -41,9 +42,10 @@ namespace WeixinSDK.Net.OAuth2
         /// <param name="url">AccessToken接口地址</param>
         /// <param name="dict"></param>
         /// <returns></returns>
-        public virtual Task<string> RefreshOAuthToke(string url, IParams dict)
+        public virtual async Task<string> RefreshOAuthToke(string url, IParams dict)
         {
-            return HttpProxy.PostAsync(url, dict.ToFormString());
+            var res = await HttpProxy.PostAsync(url, dict.ToFormString());
+            return res.IsSuccess ? res.Body : "";
         }
         /// <summary>
         /// 根据access_token获取用户信息
@@ -51,9 +53,10 @@ namespace WeixinSDK.Net.OAuth2
         /// <param name="url">接口地址</param>
         /// <param name="dict"></param>
         /// <returns></returns>
-        public virtual Task<string> GetFromAuthToket(string url, OpenIdBaseParams dict)
+        public virtual async Task<string> GetFromAuthToket(string url, OpenIdBaseParams dict)
         {
-            return HttpProxy.PostAsync(url, dict.ToFormString());
+            var res = await HttpProxy.PostAsync(url, dict.ToFormString());
+            return res.IsSuccess ? res.Body : "";
         }
     }
 }

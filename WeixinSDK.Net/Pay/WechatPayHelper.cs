@@ -55,17 +55,16 @@ namespace WeixinSDK.Net.Pay
         /// <returns></returns>
         public async Task<OrderQueryResult> GetOrderQuery(OrderQuery data, string key)
         {
-            try
+            var res = await HttpProxy.PostAsync($"{AppendUrl}/orderquery", data.ToXml(key));
+            if (res.IsSuccess)
             {
-                var xml = await HttpProxy.PostAsync($"{AppendUrl}/orderquery", data.ToXml(key));
-                return MetaDataHeler.ToEntity<OrderQueryResult>(xml);
+                return MetaDataHeler.ToEntity<OrderQueryResult>(res.Body);
             }
-            catch
+            return new OrderQueryResult
             {
-
-               
-            }
-            return null; 
+                err_code = WechatPayError.Unknown,
+                err_code_des = res.Message
+            };
         }
 
         /// <summary>
@@ -76,10 +75,10 @@ namespace WeixinSDK.Net.Pay
         /// <returns></returns>
         public async Task<DataResult> WechatPayOrderResult(UnifiedOrder data, string key)
         {
-            try
+            var res = await HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", data.ToXml(key));
+            if (res.IsSuccess)
             {
-                var xml = await HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", data.ToXml(key));
-                var result = MetaDataHeler.ToEntity<PayOrderResult>(xml);
+                var result = MetaDataHeler.ToEntity<PayOrderResult>(res.Body);
                 if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
                 {
                     var obj = new WechatBridge
@@ -97,25 +96,16 @@ namespace WeixinSDK.Net.Pay
                     return new DataResult()
                     {
                         Result = obj,
-                        Message = xml
+                        Message = res.Body
                     };
                 }
-                return new DataResult
-                {
-                    IsError = true,
-                    Message = result.err_code_des ?? result.return_msg
-                };
-
+                
             }
-            catch (Exception ex)
+            return new DataResult
             {
-                return new DataResult
-                {
-                    IsError = true,
-                    Message = ex.Message
-                };
-            }
-          
+                IsError = true,
+                Message = res.Message
+            };
         }
         /// <summary>
         /// H5支付场景
@@ -125,10 +115,10 @@ namespace WeixinSDK.Net.Pay
         /// <returns></returns>
         public async Task<DataResult> H5PayOrderResult(UnifiedOrder data, string key)
         {
-            try
+            var res = await HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", data.ToXml(key));
+            if (res.IsSuccess)
             {
-                var xml = await HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", data.ToXml(key));
-                var result = MetaDataHeler.ToEntity<PayOrderResult>(xml);
+                var result = MetaDataHeler.ToEntity<PayOrderResult>(res.Body);
                 if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
                 {
                     return new DataResult()
@@ -140,22 +130,13 @@ namespace WeixinSDK.Net.Pay
                         }
                     };
                 }
-                return new DataResult
-                {
-                    IsError = true,
-                    Message = result.err_code_des ?? result.return_msg
-                };
+               
             }
-            catch (Exception ex)
+            return new DataResult
             {
-
-                return new DataResult
-                {
-                    IsError = true,
-                    Message = ex.Message
-                };
-            }
-           
+                IsError = true,
+                Message = res.Message
+            };
 
         }
 
@@ -167,10 +148,10 @@ namespace WeixinSDK.Net.Pay
         /// <returns></returns>
         public async Task<DataResult> AppPayOrderResult(UnifiedOrder data, string key)
         {
-            try
+            var res = await HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", data.ToXml(key));
+            if (res.IsSuccess)
             {
-                var xml = await HttpProxy.PostAsync($"{AppendUrl}/unifiedorder", data.ToXml(key));
-                var result = MetaDataHeler.ToEntity<PayOrderResult>(xml);
+                var result = MetaDataHeler.ToEntity<PayOrderResult>(res.Body);
                 if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
                 {
                     var obj = new AppBridge
@@ -191,22 +172,13 @@ namespace WeixinSDK.Net.Pay
                     };
 
                 }
-                return new DataResult
-                {
-                    IsError = true,
-                    Message = result.return_msg ?? result.err_code_des
-                };
             }
-            catch (Exception ex)
-            {
 
-                return new DataResult
-                {
-                    IsError = true,
-                    Message = ex.Message
-                };
-            }
-           
+            return new DataResult
+            {
+                IsError = true,
+                Message = res.Message
+            };
         }
 
         /// <summary>
@@ -295,9 +267,17 @@ namespace WeixinSDK.Net.Pay
         /// <returns></returns>
         public PayOrderResult CloseOrder(OrderClose data, string key)
         {
-            var xml = HttpProxy.PostAsync($"{AppendUrl}/closeorder", data.ToXml(key)).Result;
-            return MetaDataHeler.ToEntity<PayOrderResult>(xml);
+            var res = HttpProxy.PostAsync($"{AppendUrl}/closeorder", data.ToXml(key)).Result;
+            if (res.IsSuccess)
+            {
+                return MetaDataHeler.ToEntity<PayOrderResult>(res.Body);
+            }
 
+            return new PayOrderResult
+            {
+                err_code = WechatPayError.ERROR,
+                err_code_des = res.Message
+            };
         }
 
         /// <summary>
@@ -308,17 +288,17 @@ namespace WeixinSDK.Net.Pay
         /// <returns></returns>
         public static async Task<RefundResult> Refund(RefundObject data, string key)
         {
-            try
+            var res = await HttpProxy.PostAsync($"{AppendUrl}/refund", data.ToXml(key));
+            if (res.IsSuccess)
             {
-                var xml = await HttpProxy.PostAsync("https://api.mch.weixin.qq.com/secapi/pay/refund", data.ToXml(key));
-                return MetaDataHeler.ToEntity<RefundResult>(xml);
+                return MetaDataHeler.ToEntity<RefundResult>(res.Body);
             }
-            catch (Exception ex)
+
+            return new RefundResult
             {
-
-            }
-            return null;
-
+                err_code = WechatPayError.ERROR,
+                err_code_des = res.Message
+            };
         }
 
         /// <summary>
@@ -329,17 +309,16 @@ namespace WeixinSDK.Net.Pay
         /// <returns></returns>
         public async Task<DownBillResult> DownloadBill(DownBillObject data, string key)
         {
-            try
+            var res = await HttpProxy.PostAsync($"{AppendUrl}/downloadbill", data.ToXml(key));
+            if (res.IsSuccess)
             {
-                var xml = await HttpProxy.PostAsync($"{AppendUrl}/downloadbill", data.ToXml(key));
-                return MetaDataHeler.ToEntity<DownBillResult>(xml);
+                return MetaDataHeler.ToEntity<DownBillResult>(res.Body);
             }
-            catch 
+            return new DownBillResult
             {
-
-            }
-
-            return null;
+                return_code = "ERROR",
+                return_msg = res.Message
+            };
         }
 
         /// <summary>
@@ -350,18 +329,16 @@ namespace WeixinSDK.Net.Pay
         /// <returns></returns>
         public async Task<ResultInfoBase> DownloadFundFlow(DownBillObject data, string key)
         {
-            try
+            var res = await HttpProxy.PostAsync($"{AppendUrl}/downloadfundflow", data.ToXml(key));
+            if (res.IsSuccess)
             {
-                var xml = await HttpProxy.PostAsync($"{AppendUrl}/downloadfundflow", data.ToXml(key));
-                return MetaDataHeler.ToEntity<ResultInfoBase>(xml);
+                return MetaDataHeler.ToEntity<ResultInfoBase>(res.Body);
             }
-            catch
+            return new ResultInfoBase
             {
-
-             
-            }
-
-            return null;
+                err_code = WechatPayError.ERROR,
+                err_code_des = res.Message
+            };
         }
 
         /// <summary>
@@ -372,18 +349,16 @@ namespace WeixinSDK.Net.Pay
         /// <returns></returns>
         public static async Task<SignKeyResult> GetSignKey(BaseObject data, string key)
         {
-            try
+            var res = await HttpProxy.PostAsync($"{SendboxUrl}/getsignkey", data.ToXml(key));
+            if (res.IsSuccess)
             {
-                var xml = await HttpProxy.PostAsync("https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey", data.ToXml(key));
-                return MetaDataHeler.ToEntity<SignKeyResult>(xml);
-
+                return MetaDataHeler.ToEntity<SignKeyResult>(res.Body);
             }
-            catch
+            return new SignKeyResult
             {
-
-            }
-
-            return null;
+                err_code = WechatPayError.ERROR,
+                err_code_des = res.Message
+            };
         }
 
 

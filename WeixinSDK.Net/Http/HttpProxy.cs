@@ -4,17 +4,28 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Mime;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using WeixinSDK.Net.Extensions;
 
 namespace WeixinSDK.Net.Http
 {
+
+    internal class HttpResult
+    {
+        public string Message { get; set; } 
+        public bool IsSuccess { get; set; }
+        public string Body { get; set; }
+
+        public static HttpResult Error(string message)
+        {
+            return new HttpResult
+            {
+                Message = message
+            };
+        } 
+    }
     internal class HttpProxy
     {
         /// <summary>
@@ -23,21 +34,32 @@ namespace WeixinSDK.Net.Http
         /// <param name="url"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static async Task<string> PostAsync(string url, string  data)
+        public static async Task<HttpResult> PostAsync(string url, string  data)
         {
-            if (data == null)
-                throw new ArgumentNullException("提交数据不能为空");
+            try
+            {
+                if (data == null) return  HttpResult.Error("提交数据不能为空");
 #if DEBUG
             Console.WriteLine(data);
 #endif
-            using (var client = new HttpClient())
-            {
-                client.Timeout = new TimeSpan(0, 0, 3);
-                return await client.PostAsync(url, new StringContent(data))
-                       .Result
-                       .Content
-                       .ReadAsStringAsync();
+                using (var client = new HttpClient())
+                {
+                    client.Timeout = new TimeSpan(0, 0, 5);
+                    var res = await client.PostAsync(url, new StringContent(data));
+                    return new HttpResult
+                    {
+                        IsSuccess = res.IsSuccessStatusCode,
+                        Message = res.IsSuccessStatusCode ? "OK" : res.ReasonPhrase,
+                        Body = await res.Content.ReadAsStringAsync()
+                    };
+                }
             }
+            catch (Exception ex)
+            {
+
+                return HttpResult.Error(ex.Message);
+            }
+            
         }
 
         /// <summary>

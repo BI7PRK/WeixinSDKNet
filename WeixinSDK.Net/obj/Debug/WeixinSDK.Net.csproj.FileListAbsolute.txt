@@ -7,3 +7,12 @@ E:\项目源码\WeixinSDKNet\WeixinSDK.Net\obj\Debug\WeixinSDK.Net.pdb
 E:\项目源码\WeixinSDKNet\WeixinSDK.Net\bin\Debug\Newtonsoft.Json.dll
 E:\项目源码\WeixinSDKNet\WeixinSDK.Net\bin\Debug\Newtonsoft.Json.xml
 E:\项目源码\WeixinSDKNet\WeixinSDK.Net\obj\Debug\WeixinSDK.Net.csproj.CopyComplete
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\bin\Debug\WeixinSDK.Net.dll
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\bin\Debug\WeixinSDK.Net.pdb
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\bin\Debug\Newtonsoft.Json.dll
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\bin\Debug\Newtonsoft.Json.xml
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\obj\Debug\WeixinSDK.Net.csproj.AssemblyReference.cache
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\obj\Debug\WeixinSDK.Net.csproj.CoreCompileInputs.cache
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\obj\Debug\WeixinSDK.Net.csproj.CopyComplete
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\obj\Debug\WeixinSDK.Net.dll
+E:\ProjectSource\WeixinSDKNet\WeixinSDK.Net\obj\Debug\WeixinSDK.Net.pdb
