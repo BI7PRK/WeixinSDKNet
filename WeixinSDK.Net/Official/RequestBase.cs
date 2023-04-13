@@ -1,12 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
-using WeixinSDK.Net.Extensions;
-using WeixinSDK.Net.Http;
+using System.Threading.Tasks;
 using static WeixinSDK.Net.Http.HttpProxy;
 
 namespace WeixinSDK.Net.Official
@@ -72,7 +68,7 @@ namespace WeixinSDK.Net.Official
         {
             var obj = new TModel();
             obj.RequestQueryUrl = QueryUri;
-            obj.ResonseBody = GetStringAsync(QueryUri, param).Result;
+            obj.ResonseBody = Task.Run(()=> GetStringAsync(QueryUri, param)).Result;
             return obj;
         }
 
@@ -88,7 +84,7 @@ namespace WeixinSDK.Net.Official
                 json = entity.ToString();
             }
             obj.RequestQueryUrl = QueryUri;
-            var res = PostAsync(QueryUri, json).Result;
+            var res = Task.Run(()=> PostAsync(QueryUri, json)).Result;
             obj.ResonseBody = res.IsSuccess ? res.Body : res.Message;
 
 
@@ -100,7 +96,7 @@ namespace WeixinSDK.Net.Official
 
             var obj = new TModel();
             obj.RequestQueryUrl = QueryUri;
-            obj.ResonseBody = HttpProxy.FormPostFile(new FormPostData
+            obj.ResonseBody = FormPostFile(new FormPostData
             {
                 FileField = files,
                 FormField = formdata,

@@ -370,7 +370,7 @@ namespace WeixinSDK.Net.Pay
         /// <returns></returns>
         public static string ToSign(IBridge bridge, string key)
         {
-            var Exclude = new string[] { "trade_type" };
+            var Exclude = new string[] { "trade_type", "prepayid" };
 
             var objType = bridge.GetType();
 

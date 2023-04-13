@@ -54,9 +54,11 @@ namespace WeixinSDK.Net.Pay.Entity
         /// </summary>
         public string paySign { get; set; }
 
+        [JsonIgnore]
         [JsonConverter(typeof(StringEnumConverter))]
         public TradeType trade_type { get; set; }
 
+        [JsonIgnore]
         public string prepayid { get; set; }
     }
 
