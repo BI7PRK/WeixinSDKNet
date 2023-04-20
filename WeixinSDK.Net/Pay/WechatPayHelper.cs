@@ -1,18 +1,14 @@
 ﻿
-using WeixinSDK.Net.Extensions;
-using WeixinSDK.Net.Http;
-using WeixinSDK.Net.Pay.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using System.Xml;
-using WeixinSDK.Net.Pay.Enums;
-using System.IO;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
+using WeixinSDK.Net.Extensions;
+using WeixinSDK.Net.Http;
+using WeixinSDK.Net.Pay.Entity;
+using WeixinSDK.Net.Pay.Enums;
 
 namespace WeixinSDK.Net.Pay
 {
@@ -79,27 +75,39 @@ namespace WeixinSDK.Net.Pay
             if (res.IsSuccess)
             {
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(res.Body);
-                if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
+                if (result.result_code != PayResult.SUCCESS)
                 {
-                    var obj = new WechatBridge
+                    return new DataResult
                     {
-                        appId = result.appid,
-                        nonceStr = data.nonce_str,
-                        package = $"prepay_id={result.prepay_id}",
-                        trade_type = result.trade_type,
-                        signType = result.sign_type,
-
-                    };
-
-                    obj.paySign = ToSign(obj, key);
-
-                    return new DataResult()
-                    {
-                        Result = obj,
-                        Message = res.Body
+                        IsError = true,
+                        Message = result.return_msg
                     };
                 }
-                
+                if (result.err_code != WechatPayError.SUCCESS)
+                {
+                    return new DataResult
+                    {
+                        IsError = true,
+                        Message = result.err_code_des
+                    };
+                }
+                var obj = new WechatBridge
+                {
+                    appId = result.appid,
+                    nonceStr = data.nonce_str,
+                    package = $"prepay_id={result.prepay_id}",
+                    trade_type = result.trade_type,
+                    signType = result.sign_type,
+
+                };
+                obj.paySign = ToSign(obj, key);
+
+                return new DataResult()
+                {
+                    Result = obj,
+                    Message = res.Body
+                };
+
             }
             return new DataResult
             {
@@ -119,18 +127,31 @@ namespace WeixinSDK.Net.Pay
             if (res.IsSuccess)
             {
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(res.Body);
-                if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
+                if(result.result_code != PayResult.SUCCESS)
                 {
-                    return new DataResult()
+                    return new DataResult
                     {
-                        Result = new H5Bridge
-                        {
-                            mweb_url = result.mweb_url,
-                            prepayid = result.prepay_id
-                        }
+                        IsError = true,
+                        Message = result.return_msg
                     };
                 }
-               
+                if (result.err_code != WechatPayError.SUCCESS)
+                {
+                    return new DataResult
+                    {
+                        IsError = true,
+                        Message = result.err_code_des
+                    };
+                }
+                return new DataResult()
+                {
+                    Result = new H5Bridge
+                    {
+                        mweb_url = result.mweb_url,
+                        prepayid = result.prepay_id
+                    }
+                };
+
             }
             return new DataResult
             {
@@ -152,26 +173,38 @@ namespace WeixinSDK.Net.Pay
             if (res.IsSuccess)
             {
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(res.Body);
-                if (result.result_code == PayResult.SUCCESS && result.return_code == PayResult.SUCCESS)
+                if (result.result_code != PayResult.SUCCESS)
                 {
-                    var obj = new AppBridge
+                    return new DataResult
                     {
-                        appId = result.appid,
-                        partnerid = result.mch_id,
-                        prepayid = result.prepay_id,
-                        nonceStr = data.nonce_str,
-                        signType = result.sign_type,
-                        trade_type = result.trade_type
+                        IsError = true,
+                        Message = result.return_msg
                     };
-
-                    obj.paySign = ToSign(obj, key);
-
-                    return new DataResult()
-                    {
-                        Result = obj
-                    };
-
                 }
+                if (result.err_code != WechatPayError.SUCCESS)
+                {
+                    return new DataResult
+                    {
+                        IsError = true,
+                        Message = result.err_code_des
+                    };
+                }
+                var obj = new AppBridge
+                {
+                    appId = result.appid,
+                    partnerid = result.mch_id,
+                    prepayid = result.prepay_id,
+                    nonceStr = data.nonce_str,
+                    signType = result.sign_type,
+                    trade_type = result.trade_type
+                };
+
+                obj.paySign = ToSign(obj, key);
+
+                return new DataResult()
+                {
+                    Result = obj
+                };
             }
 
             return new DataResult
