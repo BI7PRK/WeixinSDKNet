@@ -75,7 +75,7 @@ namespace WeixinSDK.Net.Pay
             if (res.IsSuccess)
             {
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(res.Body);
-                if (result.result_code != PayResult.SUCCESS)
+                if (result.result_code != PayResult.SUCCESS || result.return_code != PayResult.SUCCESS)
                 {
                     return new DataResult
                     {
@@ -83,14 +83,7 @@ namespace WeixinSDK.Net.Pay
                         Message = result.return_msg
                     };
                 }
-                if (result.err_code != WechatPayError.SUCCESS)
-                {
-                    return new DataResult
-                    {
-                        IsError = true,
-                        Message = result.err_code_des
-                    };
-                }
+              
                 var obj = new WechatBridge
                 {
                     appId = result.appid,
@@ -127,20 +120,12 @@ namespace WeixinSDK.Net.Pay
             if (res.IsSuccess)
             {
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(res.Body);
-                if(result.result_code != PayResult.SUCCESS)
+                if (result.result_code != PayResult.SUCCESS || result.return_code != PayResult.SUCCESS)
                 {
                     return new DataResult
                     {
                         IsError = true,
                         Message = result.return_msg
-                    };
-                }
-                if (result.err_code != WechatPayError.SUCCESS)
-                {
-                    return new DataResult
-                    {
-                        IsError = true,
-                        Message = result.err_code_des
                     };
                 }
                 return new DataResult()
@@ -173,20 +158,12 @@ namespace WeixinSDK.Net.Pay
             if (res.IsSuccess)
             {
                 var result = MetaDataHeler.ToEntity<PayOrderResult>(res.Body);
-                if (result.result_code != PayResult.SUCCESS)
+                if (result.result_code != PayResult.SUCCESS || result.return_code != PayResult.SUCCESS)
                 {
                     return new DataResult
                     {
                         IsError = true,
                         Message = result.return_msg
-                    };
-                }
-                if (result.err_code != WechatPayError.SUCCESS)
-                {
-                    return new DataResult
-                    {
-                        IsError = true,
-                        Message = result.err_code_des
                     };
                 }
                 var obj = new AppBridge

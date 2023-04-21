@@ -45,10 +45,6 @@ namespace WeixinSDK.Net.Entity
         /// <summary>
         /// 
         /// </summary>
-        public string EventKey { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
         public ScanCodeInfo ScanCodeInfo { get; set; }
     }
 
