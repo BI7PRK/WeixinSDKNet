@@ -275,9 +275,9 @@ namespace WeixinSDK.Net.Pay
         /// <param name="data">The data.</param>
         /// <param name="key">The key.</param>
         /// <returns></returns>
-        public PayOrderResult CloseOrder(OrderClose data, string key)
+        public static async Task<PayOrderResult> CloseOrder(OrderClose data, string key)
         {
-            var res = HttpProxy.PostAsync($"{AppendUrl}/closeorder", data.ToXml(key)).Result;
+            var res = await HttpProxy.PostAsync($"{AppendUrl}/closeorder", data.ToXml(key));
             if (res.IsSuccess)
             {
                 return MetaDataHeler.ToEntity<PayOrderResult>(res.Body);

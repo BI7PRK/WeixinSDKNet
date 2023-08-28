@@ -6,3 +6,4 @@ WeixinSDK.Net/bin
 WeixinSDK.Net/obj
 WeixinSDK.Net/*.cmd
 WeixinSDK.Net/*.nupkg
+/nuget*
